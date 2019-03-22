@@ -18,17 +18,17 @@ class Board
     puts @board
   end
 
-  def update_board(box, user_mark)
-    case box
-    when 1 then @box[:a1] = user_mark
-    when 2 then @box[:a2] = user_mark
-    when 3 then @box[:a3] = user_mark
-    when 4 then @box[:b1] = user_mark
-    when 5 then @box[:b2] = user_mark
-    when 6 then @box[:b3] = user_mark
-    when 7 then @box[:c1] = user_mark
-    when 8 then @box[:c2] = user_mark
-    when 9 then @box[:c3] = user_mark
+  def update_board(position, user_mark)
+    case position
+    when '1' then @box[:a1] = user_mark
+    when '2' then @box[:a2] = user_mark
+    when '3' then @box[:a3] = user_mark
+    when '4' then @box[:b1] = user_mark
+    when '5' then @box[:b2] = user_mark
+    when '6' then @box[:b3] = user_mark
+    when '7' then @box[:c1] = user_mark
+    when '8' then @box[:c2] = user_mark
+    when '9' then @box[:c3] = user_mark
     else 'Un-existent Box'
     end
     @board = " -----------
@@ -37,7 +37,6 @@ class Board
 | #{@box[:c1]} | #{@box[:c2]} | #{@box[:c3]} |
  -----------"
 
-    puts @board
   end
 end
 
