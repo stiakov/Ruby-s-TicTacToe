@@ -1,6 +1,6 @@
 # Board class
 class Board
-  attr_accessor :box
+  attr_accessor :box, :board
 
   def initialize
     @box = { a1: '1', a2: '2', a3: '3',
@@ -37,7 +37,7 @@ class Board
 | #{@box[:c1]} | #{@box[:c2]} | #{@box[:c3]} |
  -----------"
 
-    @board
+    puts @board
   end
 end
 
