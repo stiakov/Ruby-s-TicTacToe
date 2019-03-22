@@ -1,4 +1,3 @@
-require_relative "game"
 class Player
   attr_accessor :name, :mark, :score, :winner
   
@@ -10,7 +9,7 @@ class Player
   end
 
   def move coor
-    puts "Type a coordenade"
+    puts "Select position 1 to 9"
     puts input = gets.chomp
   end
 end
