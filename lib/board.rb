@@ -1,4 +1,4 @@
-require_relative './game'
+# Board class
 class Board
   attr_accessor :boxes
 
@@ -39,8 +39,8 @@ class Board
   end
 end
 
-a = Board.new
-puts a.load_board
-puts a.update_board(5, 'X')
-puts a.update_board(3, 'O')
-puts 'fin'
+# a = Board.new
+# puts a.load_board
+# puts a.update_board(5, 'X')
+# puts a.update_board(3, 'O')
+# puts 'fin'

@@ -1,6 +1,6 @@
-require_relative 'board'
-# require "./player"
+require_relative './requirements'
 
+# Game class
 class Game
   @@first = nil
 
@@ -8,9 +8,9 @@ class Game
     puts "Welcome to Tic Tac Toe's Match"
     puts ' '
 
-    print 'Player 1 Type your alias: '
+    print 'Player 1: Type your alias: '
     name1 = gets.chomp
-    print 'Player 2 Type your alias: '
+    print 'Player 2: Type your alias: '
     name2 = gets.chomp
     puts '---------------'
     @b = Board.new
