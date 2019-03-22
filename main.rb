@@ -5,7 +5,7 @@ class Main
     puts "Welcome to Tic Tac Toe's Match"
     puts ' '
     id = ask_ids
-    Game.new(id[name1], id[mark1], id[name2], id[mark2])
+    Game.new(id[:name1], id[:mark1], id[:name2], id[:mark2])
   end
 
   def ask_ids
@@ -20,6 +20,7 @@ class Main
     mark2 = mark1 == 'X' ? 'O' : 'X'
     print "#{name2} Your mark is: #{mark2}"
     puts ' '
+    
     { name1: name1, mark1: mark1, name2: name2, mark2: mark2 }
   end
 
