@@ -15,7 +15,7 @@ class Board
   end
 
   def load_board
-    puts @board
+    puts "\n\n\n#{@board}\n"
   end
 
   def update_board(position, user_mark)
@@ -29,19 +29,11 @@ class Board
     when '7' then @box[:c1] = user_mark
     when '8' then @box[:c2] = user_mark
     when '9' then @box[:c3] = user_mark
-    else 'Un-existent Box'
     end
     @board = " -----------
 | #{@box[:a1]} | #{@box[:a2]} | #{@box[:a3]} |
 | #{@box[:b1]} | #{@box[:b2]} | #{@box[:b3]} |
 | #{@box[:c1]} | #{@box[:c2]} | #{@box[:c3]} |
  -----------"
-
   end
 end
-
-# a = Board.new
-# puts a.load_board
-# puts a.update_board(5, 'X')
-# puts a.update_board(3, 'O')
-# puts 'fin'
