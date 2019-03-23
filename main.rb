@@ -15,13 +15,13 @@ class Main
     name1 = gets.chomp.upcase
     name1 = 'PLAYER 1' if name1.empty?
     mark1 = choose_mark(name1, chk)
-    puts "\n=== #{name1} Your mark is: [#{mark1}] ===\n\n"
+    puts "\n===== #{name1} Your mark is: [#{mark1}] =====\n\n\n"
 
     print 'PLAYER 2: Type your alias: '
     name2 = gets.chomp.upcase
     name2 = 'PLAYER 2' if name2.empty?
     mark2 = mark1 == 'X' ? 'O' : 'X'
-    print "\n=== #{name2} Your mark is: [#{mark2}] ===\n\n"
+    print "\n===== #{name2} Your mark is: [#{mark2}] =====\n\n"
 
     { name1: name1, name2: name2, mark1: mark1, mark2: mark2 }
   end

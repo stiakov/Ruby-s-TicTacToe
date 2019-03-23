@@ -4,7 +4,7 @@ class Player
   def initialize(name, mark, winner)
     @name = name
     @mark = mark
-    @places = Array.new
+    @places = []
     @winner = winner
   end
 

@@ -22,7 +22,7 @@ class Game
 
     check_out = proc { |player|
       winner_is = player.name
-      puts "\nThe winner is #{winner_is} [#{player.mark}]"
+      puts "\n===== The winner is #{winner_is} [#{player.mark}] ====="
       puts "#{@board.load_board}\n===== Game Over =====\n\n"
     }
 
