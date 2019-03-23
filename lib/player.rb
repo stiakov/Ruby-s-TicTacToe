@@ -12,16 +12,16 @@ class Player
     print 'Select position 1 to 9 if available: '
     puts input = gets.chomp
     input = input.to_i
-    check = check_position(board.board, input) && check_valid(input)
+    check = check_position(board.box, input) 
     until check
       puts 'Invalid position, try another'
       puts 'Select position 1 to 9 if available'
       puts input = gets.chomp
       input = input.to_i
-      check = check_position(board, input) && check_valid(input)
+      check = check_valid(input)
     end
-    @places << input 
-    board.update_board(input, user.mark)
+    @places << input.to_i
+    board.update_board(input.to_s, user.mark)
   end
   
   def check_valid(input)
@@ -32,24 +32,16 @@ class Player
   end
     
   def check_position(board, position)
-    out = if position == 1
-            board[:a1] == '1'
-          elsif position == 2
-            board[:a2] == '2'
-          elsif position == 3
-            board[:a3] == '3'
-          elsif position == 4
-            board[:b1] == '4'
-          elsif position == 5
-            board[:b2] == '5'
-          elsif position == 6
-            board[:b3] == '6'
-          elsif position == 7
-            board[:c1] == '7'
-          elsif position == 8
-            board[:c2] == '8'
-          elsif position == 9
-            board[:c3] == '9'
+    out = case position
+          when 1 then board[:a1] == '1'
+          when 2 then board[:a2] == '2'
+          when 3 then board[:a3] == '3'
+          when 4 then board[:b1] == '4'
+          when 5 then board[:b2] == '5'
+          when 6 then board[:b3] == '6'
+          when 7 then board[:c1] == '7'
+          when 8 then board[:c2] == '8'
+          when 9 then board[:c3] == '9'
           else false
           end
     out
