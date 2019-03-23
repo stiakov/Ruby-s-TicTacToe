@@ -11,17 +11,26 @@ class Player
   def move(user, board)
     print 'Select position 1 to 9 if available: '
     puts input = gets.chomp
-    check = check_position(board.board, input)
-    unless check
+    input = input.to_i
+    check = check_position(board.board, input) && check_valid(input)
+    until check
       puts 'Invalid position, try another'
       puts 'Select position 1 to 9 if available'
       puts input = gets.chomp
-      check = check_position(board, input)
+      input = input.to_i
+      check = check_position(board, input) && check_valid(input)
     end
-    @places.push(input)
+    @places << input 
     board.update_board(input, user.mark)
   end
-
+  
+  def check_valid(input)
+    valid_input= Array (1..9)
+    out = valid_input.include? (input)
+    puts 'Please type ONLY numbers from 1 to 9. Try again' if out == false
+    out
+  end
+    
   def check_position(board, position)
     out = if position == 1
             board[:a1] == '1'
