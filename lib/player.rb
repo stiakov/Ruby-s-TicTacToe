@@ -31,15 +31,15 @@ class Player
 
   def check_position(board, position)
     out = case position
-          when 1 then board[:a1] == '1'
-          when 2 then board[:a2] == '2'
-          when 3 then board[:a3] == '3'
-          when 4 then board[:b1] == '4'
-          when 5 then board[:b2] == '5'
-          when 6 then board[:b3] == '6'
-          when 7 then board[:c1] == '7'
-          when 8 then board[:c2] == '8'
-          when 9 then board[:c3] == '9'
+          when 1 then board[:box_id_1] == 1
+          when 2 then board[:box_id_2] == 2
+          when 3 then board[:box_id_3] == 3
+          when 4 then board[:box_id_4] == 4
+          when 5 then board[:box_id_5] == 5
+          when 6 then board[:box_id_6] == 6
+          when 7 then board[:box_id_7] == 7
+          when 8 then board[:box_id_8] == 8
+          when 9 then board[:box_id_9] == 9
           else false
           end
     out
