@@ -9,14 +9,9 @@ class Player
     @score = 0
   end
 
-  def clean_player
-    @places = []
-  end
-
   def move(user, board)
     print '    Select position [1] to [9] if available: '
-    input = gets.chomp.to_i
-    check = check_valid(input, board)
+    check = false
 
     until check
       input = gets.chomp.to_i

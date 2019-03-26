@@ -24,10 +24,11 @@ class Game
     second = sort.zero? ? @player2 : @player1
 
     finish = false
-    until
+    until finish
       # FIRST PLAYER
       finish = movement_and_check(first, @board)
       next if finish
+
       # SECOND PLAYER
       finish = movement_and_check(second, @board)
       next if finish
@@ -42,8 +43,6 @@ class Game
     true
   }
 
-  $moves_size = proc { |i, j| i + j == 9 }
-
   $check_out = proc { |player, board|
     winner_is = player.name
     board.set_scores(winner_is, player.score += 1)
@@ -57,7 +56,7 @@ class Game
     make_your_move(player, board)
     @moves_counter += 1
     win_chk = check_winner(player) if @moves_counter > 4
-    
+
     tie = $tie_validation.call(board) if @moves_counter == 9 && !win_chk
     if win_chk || tie
       $check_out.call(player, board) if win_chk
