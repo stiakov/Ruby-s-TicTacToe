@@ -70,7 +70,6 @@ class Game
         puts "\nDeveloped in Ruby by: @st_iakov & @miss_elliev - 2019\n\n"
         return auth_finish = true
       end
-      puts '---- NOT HERE <<<<<<<<<<<<<<<<<<<<<<'
       clean_for_new_game if auth_finish == false
       auth_finish
     end

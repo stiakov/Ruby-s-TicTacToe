@@ -57,10 +57,4 @@ module Messenger
     puts "\nPress [Enter] to continue"
     gets.chomp
   end
-
-  def print_next_game
-    puts " +-+-+-+-+ +-+-+-+-+
-    |N|E|X|T| |G|A|M|E|
-    +-+-+-+-+ +-+-+-+-+"
-  end
 end
