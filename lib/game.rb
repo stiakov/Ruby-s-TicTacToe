@@ -50,10 +50,10 @@ class Game
 
   $winning = proc { |player|
     winner = "#{player.name} [#{player.mark}]"
-    centerSize = (31 - winner.size) / 2
-    spaces = centerSize > 0 ? ' '* centerSize : ''
+    center_size = (31 - winner.size) / 2
+    spaces = center_size > 0 ? ' ' * center_size : ''
     puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
-    #{spaces+winner}\n
+    #{spaces + winner}\n
     |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
   }
 
@@ -76,7 +76,7 @@ class Game
       $winning.call(player) if win_chk
       print '    Press [Enter] NEXT GAME or [Q] to Quit: '
       salida = false
-      until salida 
+      until salida
         q = gets.chomp.upcase
         if q == 'Q'
           salida = true
@@ -85,7 +85,6 @@ class Game
           return auth_finish = true
         elsif q.empty?
           salida = true
-          puts "test"
           clean_for_new_game if auth_finish == false
         else
           print '    Please only type [Q] to quit or press [Enter] for a new game: '
