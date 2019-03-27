@@ -36,24 +36,24 @@ class Game
 
   # PROCS
 
-  $tie_validation = proc { |board|
+  @@tie_validation = proc { |board|
     board.set_scores('tie', board.tie_score += 1)
     board.load_board
     true
   }
 
-  $check_out = proc { |player, board|
+  @@check_out = proc { |player, board|
     winner_is = player.name
     board.set_scores(winner_is, player.score += 1)
     board.load_board
   }
 
-  $winning = proc { |player|
+  @@winning = proc { |player|
     winner = "#{player.name} [#{player.mark}]"
-    centerSize = (31 - winner.size) / 2
-    spaces = centerSize > 0 ? ' '* centerSize : ''
+    center_size = (31 - winner.size) / 2
+    spaces = center_size > 0 ? ' ' * center_size : ''
     puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
-    #{spaces+winner}\n
+    #{spaces + winner}\n
     |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
   }
 
@@ -65,18 +65,18 @@ class Game
     @moves_counter += 1
     win_chk = check_winner(player) if @moves_counter > 4
 
-    tie = $tie_validation.call(board) if @moves_counter == 9 && !win_chk
+    tie = @@tie_validation.call(board) if @moves_counter == 9 && !win_chk
     if win_chk || tie
-      $check_out.call(player, board) if win_chk
+      @@check_out.call(player, board) if win_chk
       if tie
         puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
             TIE, TRY AGAIN!\n
     |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
       end
-      $winning.call(player) if win_chk
+      @@winning.call(player) if win_chk
       print '    Press [Enter] NEXT GAME or [Q] to Quit: '
       salida = false
-      until salida 
+      until salida
         q = gets.chomp.upcase
         if q == 'Q'
           salida = true
@@ -85,7 +85,6 @@ class Game
           return auth_finish = true
         elsif q.empty?
           salida = true
-          puts "test"
           clean_for_new_game if auth_finish == false
         else
           print '    Please only type [Q] to quit or press [Enter] for a new game: '
