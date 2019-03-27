@@ -50,10 +50,10 @@ class Game
 
   $winning = proc { |player|
     winner = "#{player.name} [#{player.mark}]"
-    center_size = (31 - winner.size) / 2
+    center_size = (26 - winner.size) / 2
     spaces = center_size > 0 ? ' ' * center_size : ''
     puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
-    #{spaces + winner}\n
+    #{spaces + winner} WINS!\n
     |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
   }
 
