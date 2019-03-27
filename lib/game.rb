@@ -31,7 +31,6 @@ class Game
 
       # SECOND PLAYER
       finish = movement_and_check(second, @board)
-      next if finish
     end
   end
 
@@ -49,6 +48,15 @@ class Game
     board.load_board
   }
 
+  $winning = proc { |player|
+    winner = "#{player.name} [#{player.mark}]"
+    centerSize = (31 - winner.size) / 2
+    spaces = centerSize > 0 ? ' '* centerSize : ''
+    puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
+    #{spaces+winner}\n
+    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
+  }
+
   def movement_and_check(player, board)
     auth_finish = false
     board.load_board
@@ -60,16 +68,29 @@ class Game
     tie = $tie_validation.call(board) if @moves_counter == 9 && !win_chk
     if win_chk || tie
       $check_out.call(player, board) if win_chk
-      puts "    ---> TIE, try again! <---\n\n" if tie
-      puts "\n    ---> #{player.name} [#{player.mark}] WINS <---\n\n\n" if win_chk
-      print '    Press [Enter] NEXT GAME or [Q] to Quit: '
-      q = gets.chomp.upcase
-      if q == 'Q'
-        clean_sys
-        puts "\nDeveloped in Ruby by: @st_iakov & @miss_elliev - 2019\n\n"
-        return auth_finish = true
+      if tie
+        puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
+            TIE, TRY AGAIN!\n
+    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
       end
-      clean_for_new_game if auth_finish == false
+      $winning.call(player) if win_chk
+      print '    Press [Enter] NEXT GAME or [Q] to Quit: '
+      salida = false
+      until salida 
+        q = gets.chomp.upcase
+        if q == 'Q'
+          salida = true
+          clean_sys
+          puts "\nDeveloped in Ruby by: @st_iakov & @miss_elliev - 2019\n\n"
+          return auth_finish = true
+        elsif q.empty?
+          salida = true
+          puts "test"
+          clean_for_new_game if auth_finish == false
+        else
+          print '    Please only type [Q] to quit or press [Enter] for a new game: '
+        end
+      end
       auth_finish
     end
   end
