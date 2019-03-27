@@ -53,7 +53,7 @@ module Messenger
   def print_data(args)
     clean_sys
     puts "#{args[0]} your mark is [#{args[1]}]"
-    puts "#{args[2]} you will be playing with [#{args[3].to_s[/\w/]}]"
+    puts "#{args[2]} you will be playing with [#{args[3]}]"
     puts "\nPress [Enter] to continue"
     gets.chomp
   end
