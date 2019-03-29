@@ -2,6 +2,7 @@ require 'rspec'
 
 RSpec.describe Player do
   describe '.move' do
+    
     let(:surface) {surface.new("\n\n
               TIC TAC TOE\n
     ┌─────────┬─────────┬─────────┐
@@ -22,7 +23,9 @@ RSpec.describe Player do
     └─────────┴─────────┴─────────┘\n\n")}
     it 'places an user input in board' do
       player = Player.new('E','X')
-      expected(player.move(player.mark, 2)).to eq[:surface]
+      board = Board.new('player1', 'player2')
+      player.stub(:gets).and_return("2\n")
+      expect(player.move(player, board)).to output(:surface).to_stdout
     end
   end
 end
