@@ -2,19 +2,18 @@ require_relative './req'
 
 # Game Class
 class Game
-  attr_accessor :player_1, :player_2, :win1, :win2, :tie
+  attr_accessor :player_1, :player_2
   include Messenger
 
   def initialize(name1, mark1, name2, mark2)
     @moves_counter = 0
-    @win1 = 0
-    @win2 = 0
-    @tie = 0
     @player1 = Player.new(name1, mark1)
     @player2 = Player.new(name2, mark2)
     @board = Board.new(name1, name2)
     turns
   end
+
+  private
 
   def turns
     @board.load_board
@@ -35,8 +34,6 @@ class Game
     end
   end
 
-  # PROCS
-
   def tie_update(board, winner)
     out = false
     if @moves_counter == 9 && !winner
@@ -51,26 +48,33 @@ class Game
   end
 
   def winner_update(player, board)
-    board.set_scores(player.name, player.score += 1)
-    board.load_board
-    winner = "#{player.name} [#{player.mark}]"
-    center_size = (26 - winner.size) / 2
-    spaces = center_size > 0 ? ' ' * center_size : ''
-    puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
+    out = false
+    if @moves_counter > 4
+      streaks = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
+                 [1, 4, 7], [2, 5, 8], [3, 6, 9],
+                 [1, 5, 9], [3, 5, 7]]
+      streaks.each { |set| out = true if (player.places & set).size == 3 }
+    end
+    if out
+      board.set_scores(player.name, player.score += 1)
+      board.load_board
+      winner = "#{player.name} [#{player.mark}]"
+      center_size = (26 - winner.size) / 2
+      spaces = center_size > 0 ? ' ' * center_size : ''
+      puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
     #{spaces + winner} WINS!\n
     |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
+    end
+    out
   end
 
   def movement_and_check(player, board)
     auth_finish = false
-    board.load_board
-    puts "\n    #{player.name} [#{player.mark}] goes first, make your move\n" if @moves_counter.zero?
     make_your_move(player, board)
 
-    win_chk = is_winner?(player)
+    win_chk = winner_update(player, board)
     tie_chk = tie_update(board, win_chk)
 
-    winner_update(player, board) if win_chk
     auth_finish = new_game? if win_chk || tie_chk
   end
 
@@ -95,20 +99,11 @@ class Game
   end
 
   def make_your_move(player, board)
+    board.load_board
+    puts "\n    #{player.name} [#{player.mark}] goes first, make your move\n" if @moves_counter.zero?
     puts "\n    #{player.name} [#{player.mark}] make your move\n" if @moves_counter > 0
     player.move(player, board)
     @moves_counter += 1
-  end
-
-  def is_winner?(player)
-    out = false
-    if @moves_counter > 4
-      streaks = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
-                 [1, 4, 7], [2, 5, 8], [3, 6, 9],
-                 [1, 5, 9], [3, 5, 7]]
-      streaks.each { |set| out = true if (player.places & set).size == 3 }
-    end
-    out
   end
 
   def clean_for_new_game
@@ -118,5 +113,4 @@ class Game
     @moves_counter = 0
     @board.clean_board
   end
-  private :clean_for_new_game, :is_winner?, :tie_update, :make_your_move, :movement_and_check, :new_game?, :turns
 end

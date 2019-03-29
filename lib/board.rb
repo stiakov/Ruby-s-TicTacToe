@@ -122,14 +122,6 @@ class Board
     load_board
   end
 
-  def add_to_used_cells(position)
-    @used_cells << position
-  end
-
-  def get_used_cells
-    @used_cells
-  end
-
   def set_scores(player, score)
     @score1 = score if @player1 == player
     @score2 = score if @player2 == player

@@ -22,10 +22,12 @@ class Player
     board.update_board(input.to_s, user.mark)
   end
 
+  private
+
   def check_valid(input, board)
     valid_input = Array(1..9)
-    out = !board.get_used_cells.include?(input) && valid_input.include?(input) ? true : false
-    board.add_to_used_cells(input) if out
+    out = !board.used_cells.include?(input) && valid_input.include?(input) ? true : false
+    board.used_cells << input if out
     print "\n        Invalid position, try again!\n\n    Select position [1] to [9] if available: " unless out
     out
   end
