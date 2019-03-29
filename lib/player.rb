@@ -1,5 +1,6 @@
 require_relative './req'
 
+#Player class
 class Player
   attr_accessor :name, :mark, :score, :places
   def initialize(name, mark)
