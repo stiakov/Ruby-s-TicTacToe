@@ -20,6 +20,8 @@ class Player
     end
 
     @places << input.to_i
+    puts 'place-------------'
+    p @places
     board.update_board(input.to_s, user.mark)
   end
 
