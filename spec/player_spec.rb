@@ -25,6 +25,7 @@ RSpec.describe Player do
     let(:player1) { Player.new('Eli', 'X') }
     let(:player2) { Player.new('Satt', 'O') }
     let(:board) { Board.new('Eli', 'Satt') }
+    # let(:game){Game.new('Eli', 'X','Satt', 'O')}
     
     context '#initialize' do
       it 'when initialized with type and name' do
@@ -45,8 +46,104 @@ RSpec.describe Player do
         expect(player1.places.size).to eq(2)
       end
 
-      # it 'places an user input in board' do
-      # end
+      it 'when player1 wins, 1-4-7 streak' do
+        expect(player1.mark).to eq('X')
+        expect(player1.name).to eq('Eli')
+        expect(player1.score).to eq(0)
+        expect(player2.mark).to eq('O')
+        expect(player2.name).to eq('Satt')
+        expect(player2.score).to eq(0)
+        expect(player1.places.size).to eq(0)
+        expect(player2.places.size).to eq(0)
+        player1.stub(:gets).and_return("1\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(1)
+        player2.stub(:gets).and_return("3\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(1)
+        player1.stub(:gets).and_return("4\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(2)
+        player2.stub(:gets).and_return("5\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(2)
+        player1.stub(:gets).and_return("7\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(3)
+        # player1.movement_and_check(player1, board)
+        # expect(player1.score).to eq(1)
+      end
+
+      it 'when player2 wins, 2-5-8 streak' do
+        expect(player1.mark).to eq('X')
+        expect(player1.name).to eq('Eli')
+        expect(player1.score).to eq(0)
+        expect(player2.mark).to eq('O')
+        expect(player2.name).to eq('Satt')
+        expect(player2.score).to eq(0)
+        expect(player1.places.size).to eq(0)
+        expect(player2.places.size).to eq(0)
+        player1.stub(:gets).and_return("1\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(1)
+        player2.stub(:gets).and_return("2\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(1)
+        player1.stub(:gets).and_return("3\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(2)
+        player2.stub(:gets).and_return("5\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(2)
+        player1.stub(:gets).and_return("6\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(3)
+        player2.stub(:gets).and_return("8\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(3)
+        # game.movement_and_check(player2, board)
+        # expect(player2.score).to eq(1)
+      end
+
+      it 'when its a tie' do
+        expect(player1.mark).to eq('X')
+        expect(player1.name).to eq('Eli')
+        expect(player1.score).to eq(0)
+        expect(player2.mark).to eq('O')
+        expect(player2.name).to eq('Satt')
+        expect(player2.score).to eq(0)
+        expect(player1.places.size).to eq(0)
+        expect(player2.places.size).to eq(0)
+        player1.stub(:gets).and_return("1\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(1)
+        player2.stub(:gets).and_return("2\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(1)
+        player1.stub(:gets).and_return("3\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(2)
+        player2.stub(:gets).and_return("7\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(2)
+        player1.stub(:gets).and_return("8\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(3)
+        player2.stub(:gets).and_return("9\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(3)
+        player1.stub(:gets).and_return("4\n")
+        player1.move(player1, board)
+        expect(player1.places.size).to eq(4)
+        player2.stub(:gets).and_return("5\n")
+        player2.move(player2, board)
+        expect(player2.places.size).to eq(4)
+        player1.stub(:gets).and_return("6\n")
+        player1.move(player1, board)
+        # expect(player1.places.size).to eq(5)
+        # game.movement_and_check(player2, board)
+      end
+
     end
   end
 end

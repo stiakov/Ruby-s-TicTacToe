@@ -1,7 +1,7 @@
 require_relative './req'
 
 #Player class
-class Player
+class Player < Game
   attr_accessor :name, :mark, :score, :places
   def initialize(name, mark)
     @name = name

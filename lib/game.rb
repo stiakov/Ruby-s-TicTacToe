@@ -13,6 +13,15 @@ class Game
     turns
   end
 
+  def movement_and_check(player, board)
+    make_your_move(player, board)
+
+    win_chk = winner_update(player, board)
+    tie_chk = tie_update(board, win_chk)
+
+    new_game? if win_chk || tie_chk
+  end
+  
   private
 
   def turns
@@ -66,15 +75,6 @@ class Game
     |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
     end
     out
-  end
-
-  def movement_and_check(player, board)
-    make_your_move(player, board)
-
-    win_chk = winner_update(player, board)
-    tie_chk = tie_update(board, win_chk)
-
-    new_game? if win_chk || tie_chk
   end
 
   def new_game?
