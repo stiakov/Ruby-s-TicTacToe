@@ -1,6 +1,6 @@
 require_relative './req'
 
-#Player class
+# Player class
 class Player < Game
   attr_accessor :name, :mark, :score, :places
   def initialize(name, mark)
@@ -22,8 +22,6 @@ class Player < Game
     @places << input.to_i
     board.update_board(input.to_s, user.mark)
   end
-
-  private
 
   def check_valid(input, board)
     valid_input = Array(1..9)

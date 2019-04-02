@@ -2,7 +2,7 @@ require_relative './req'
 
 # Board Class
 class Board
-  attr_accessor :player1, :player2, :surface, :tie_score, :score1, :score2, :used_cells
+  attr_accessor :player1, :player2, :surface, :tie_score, :score1, :score2, :used_cells, :cells
   include Messenger
 
   $empt = '       '

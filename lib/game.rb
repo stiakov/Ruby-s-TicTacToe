@@ -10,7 +10,6 @@ class Game
     @player1 = Player.new(name1, mark1)
     @player2 = Player.new(name2, mark2)
     @board = Board.new(name1, name2)
-    # turns
   end
 
   def movement_and_check(player, board)
