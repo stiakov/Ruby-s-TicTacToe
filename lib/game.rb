@@ -2,7 +2,7 @@ require_relative './req'
 
 # Game Class
 class Game
-  attr_accessor :player_1, :player_2
+  attr_accessor :player_1, :player_2, :moves_counter
   include Messenger
 
   def initialize(name1, mark1, name2, mark2)
@@ -10,7 +10,7 @@ class Game
     @player1 = Player.new(name1, mark1)
     @player2 = Player.new(name2, mark2)
     @board = Board.new(name1, name2)
-    turns
+    # turns
   end
 
   def movement_and_check(player, board)
@@ -22,7 +22,7 @@ class Game
     new_game? if win_chk || tie_chk
   end
   
-  private
+  # private
 
   def turns
     @board.load_board
