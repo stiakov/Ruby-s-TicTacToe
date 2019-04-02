@@ -21,8 +21,6 @@ class Game
 
     new_game? if win_chk || tie_chk
   end
-  
-  # private
 
   def turns
     @board.load_board

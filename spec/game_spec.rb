@@ -21,7 +21,14 @@ RSpec.describe Game do
       expect(g.new_game?).to eq(true)
     end
   end
-  
+
+  describe '#new_game?' do
+    it 'new_game must return true if user press [Enter]' do
+      g.stub(:gets).and_return("\n")
+      expect(g.new_game?).to eq(false)
+    end
+  end
+
   describe '#make_your_move?' do
     it 'make_your_move must return value stored in @moves_counter' do
       player1.stub(:gets).and_return("1\n")
@@ -36,15 +43,15 @@ RSpec.describe Game do
       expect(g.make_your_move(player1, board)).to eq(5)
     end
   end
-  
+
   describe '#winner_update' do
     it '#winner_update must return false if there\'s no winner' do
       expect(g.winner_update(player1, board)).to eq(false)
     end
   end
-  
+
   describe '#make_your_move?' do
-    it 'make_your_move must return value stored in @moves_counter' do
+    it '#winner_update must return false if there is winner' do
       player1.stub(:gets).and_return("1\n")
       expect(g.make_your_move(player1, board)).to eq(1)
       player2.stub(:gets).and_return("2\n")
