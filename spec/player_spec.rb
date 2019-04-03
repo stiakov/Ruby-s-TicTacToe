@@ -17,6 +17,9 @@ RSpec.describe Player do
   describe '.check_valid' do
     it 'when input is valid' do
       expect(player1.check_valid(2, board)).to eq(true)
+      expect(player1.check_valid(2, board)).to eq(false)
+      expect(player1.check_valid(3, board)).to eq(true)
+      expect(player1.check_valid(3, board)).to eq(false)
     end
   end
 end

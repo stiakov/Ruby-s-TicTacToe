@@ -18,16 +18,6 @@ RSpec.describe Game do
       end
     end
 
-    context 'After a player has placed a mark' do
-      it 'should be empty at start' do
-        @board.update_board('1', 'X')
-        expect(@board.cells[:a1]).to eq 'Yb   dP'
-        expect(@board.cells[:a2]).to eq ' Yb.dP '
-        expect(@board.cells[:a3]).to eq ' dP\'Yb '
-        expect(@board.cells[:a4]).to eq 'dP   Yb'
-      end
-    end
-
     context 'Setting scores' do
       it 'should set score for players' do
         @board.set_scores('Eli', 1)

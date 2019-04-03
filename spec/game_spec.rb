@@ -43,21 +43,11 @@ RSpec.describe Game do
   end
 
   describe '#make_your_move?' do
-    it '#winner_update must return false if there is winner' do
-      player1.stub(:gets).and_return("1\n")
-      expect(g.make_your_move(player1, board)).to eq(1)
-      player2.stub(:gets).and_return("2\n")
-      expect(g.make_your_move(player2, board)).to eq(2)
-      player1.stub(:gets).and_return("3\n")
-      expect(g.make_your_move(player1, board)).to eq(3)
-      player2.stub(:gets).and_return("4\n")
-      expect(g.make_your_move(player2, board)).to eq(4)
-      player1.stub(:gets).and_return("5\n")
-      expect(g.make_your_move(player1, board)).to eq(5)
-      player2.stub(:gets).and_return("6\n")
-      expect(g.make_your_move(player2, board)).to eq(6)
-      player1.stub(:gets).and_return("7\n")
-      expect(g.make_your_move(player1, board)).to eq(7)
+    it '#winner_update must return true if there is winner' do
+      g.instance_variable_set(:@moves_counter, 5)
+      g.instance_variable_get(:@moves_counter)
+      player1.instance_variable_set(:@places, [1, 4, 7])
+      player1.instance_variable_get(:@places)
       expect(g.winner_update(player1, board)).to eq(true)
     end
   end
