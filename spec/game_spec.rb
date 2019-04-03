@@ -27,20 +27,13 @@ RSpec.describe Game do
     end
   end
 
-  describe '#make_your_move?' do
-    it 'make_your_move must return value stored in @moves_counter' do
-      player1.stub(:gets).and_return("1\n")
-      expect(g.make_your_move(player1, board)).to eq(1)
-      player2.stub(:gets).and_return("2\n")
-      expect(g.make_your_move(player2, board)).to eq(2)
-      player1.stub(:gets).and_return("3\n")
-      expect(g.make_your_move(player1, board)).to eq(3)
-      player2.stub(:gets).and_return("4\n")
-      expect(g.make_your_move(player2, board)).to eq(4)
-      player1.stub(:gets).and_return("5\n")
-      expect(g.make_your_move(player1, board)).to eq(5)
-    end
-  end
+  # describe '#make_your_move?' do
+  #   it 'make_your_move must return value stored in @moves_counter' do
+  #     g.instance_variable_set(:@moves_counter, 8)
+  #     g.instance_variable_get(:@moves_counter)
+  #     expect(player1.stub(:gets).and_return("1\n")).to eq(9)
+  #   end
+  # end
 
   describe '#winner_update' do
     it '#winner_update must return false if there\'s no winner' do
