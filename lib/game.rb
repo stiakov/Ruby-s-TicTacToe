@@ -1,6 +1,6 @@
-require_relative "./req"
-require_relative "./board.rb"
-require_relative "./player.rb"
+require_relative './req'
+require_relative './board.rb'
+require_relative './player.rb'
 # Game Class
 class Game
   include Messenger
@@ -20,9 +20,9 @@ class Game
   def turns
     moves = 0
     print @board.render_board(@player1, @player2, @tie, {})
-   
+
     over = false
-   
+
     until over
       player = moves.even? ? @player1 : @player2
       input = select_position
@@ -30,14 +30,14 @@ class Game
         player_move(@choices, player, input)
         win = winner(@choices, player[:mark])
         tie = tie(@choices)
-        over = game_over(win,tie)
+        over = game_over(win, tie)
         moves += 1
         update_board = @board.update_board(input, player[:mark])
         print @board.render_board(@player1, @player2, @tie, update_board)
       else
         invalid
       end
-     
+
       if win
         player[:score] += 1
         winner_message(player)
@@ -57,8 +57,8 @@ class Game
 
   def winner(board, sign)
     streaks = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]]
+               [0, 3, 6], [1, 4, 7], [2, 5, 8],
+               [0, 4, 8], [2, 4, 6]]
     streaks.each do |first, second, third|
       if board[first] == sign &&
          board[second] == sign &&
@@ -74,7 +74,7 @@ class Game
     next_game
     until out
       q = gets.chomp.upcase
-      if q == "Q"
+      if q == 'Q'
         out = true
         clean_sys
         its_us
@@ -108,7 +108,3 @@ class Game
     win || tie
   end
 end
-
-a = Game.new
-a.players
-a.turns

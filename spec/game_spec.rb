@@ -2,60 +2,46 @@ require 'rspec'
 require_relative '../lib/req.rb'
 
 RSpec.describe Game do
-  let(:board) { Board.new('Eli', 'Satt') }
-  let(:g) { Game.new('Eli', 'X', 'Satt', 'O') }
-  let(:player1) { Player.new('Eli', 'X') }
-  let(:player2) { Player.new('Satt', 'O') }
+  let(:g) { Game.new }
+  let(:tie_false) { [1, 'O', 'X', 'O', 'X', 'O', 7, 8, 9] }
+  let(:tie_true) { %w[X O X O X O X O X] }
+  let(:winner_false) { ['X', 'O', 'X', 'O', 'O', 'X', 7, 8, 9] }
+  let(:winner_true) { ['X', 'X', 'X', 'O', 'O', 6, 7, 8, 9] }
+  let(:winner_false) { ['X', 'O', 'X', 'O', 'O', 'X', 7, 8, 9] }
+  let(:winner_true) { ['X', 'X', 'X', 'O', 'O', 6, 7, 8, 9] }
+  let(:choices) { [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+  let(:lim_choices) { [1, 'O', 'X', 4, 5, 6, 7, 8, 9] }
 
-  describe '#check_winner' do
-    it 'winner_update must be false since the moves_counter is lesser than 5' do
-      expect(g.winner_update(player1, board)).to eq(false)
+  describe '#tie' do
+    it '#tie must be false if there is cells available' do
+      expect(g.tie(tie_false)).to eq(false)
+    end
+    it '#tie must be true if there is no cells available' do
+      expect(g.tie(tie_true)).to eq(true)
     end
   end
 
-  describe '#new_game?' do
-    it 'new_game must return true if user press [Q]' do
-      g.stub(:gets).and_return("q\n")
-      expect(g.new_game?).to eq(true)
+  describe '#winner' do
+    it '#winner must be false if there is no a streak' do
+      expect(g.winner(winner_false, 'X')).to eq(false)
+    end
+    it '#winner must be false if there is no a streak' do
+      expect(g.winner(winner_true, 'X')).to eq(true)
     end
   end
 
-  describe '#new_game?' do
-    it 'new_game must return true if user press [Enter]' do
-      g.stub(:gets).and_return("\n")
-      expect(g.new_game?).to eq(false)
+  describe '#check_valid' do
+    it '#check_valid must be false if the input is not from 1 to 9' do
+      expect(g.check_valid(10, choices)).to eq(false)
     end
-  end
-
-  describe '#make_your_move?' do
-    it 'make_your_move must return value stored in @moves_counter' do
-      g.instance_variable_set(:@moves_counter, 8)
-      g.instance_variable_get(:@moves_counter)
-      player1.stub(:gets).and_return("1\n")
-      expect(g.make_your_move(player1, board)).to eq(9)
+    it '#check_valid must be false if the input is not a number' do
+      expect(g.check_valid('X', choices)).to eq(false)
     end
-  end
-
-  describe '#winner_update' do
-    it '#winner_update must return false if there\'s no winner' do
-      expect(g.winner_update(player1, board)).to eq(false)
+    it '#check_valid must be true if the input is between 1 and 9' do
+      expect(g.check_valid(3, choices)).to eq(true)
     end
-  end
-
-  describe '#make_your_move?' do
-    it '#winner_update must return true if there is winner' do
-      g.instance_variable_set(:@moves_counter, 5)
-      g.instance_variable_get(:@moves_counter)
-      player1.instance_variable_set(:@places, [1, 4, 7])
-      player1.instance_variable_get(:@places)
-      expect(g.winner_update(player1, board)).to eq(true)
-    end
-  end
-  describe 'tie_update' do
-    it 'checks for tied games' do
-      g.instance_variable_set(:@moves_counter, 9)
-      g.instance_variable_get(:@moves_counter)
-      expect(g.tie_update(board, false)). to eq(true)
+    it '#check_valid must be true if the input is between 1 and 9' do
+      expect(g.check_valid(2, lim_choices)).to eq(false)
     end
   end
 end
