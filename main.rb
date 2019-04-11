@@ -13,4 +13,3 @@ class Main
 end
 
 m = Main.new
-
