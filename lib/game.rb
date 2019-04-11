@@ -1,112 +1,114 @@
-require_relative './req'
-
+require_relative "./req"
+require_relative "./board.rb"
+require_relative "./player.rb"
 # Game Class
 class Game
-  attr_accessor :player_1, :player_2, :moves_counter
   include Messenger
 
-  def initialize(name1, mark1, name2, mark2)
-    @moves_counter = 0
-    @player1 = Player.new(name1, mark1)
-    @player2 = Player.new(name2, mark2)
-    @board = Board.new(name1, name2)
+  def initialize
+    @choices = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    @tie = 0
+    @board = Board.new
   end
 
-  def movement_and_check(player, board)
-    make_your_move(player, board)
-
-    win_chk = winner_update(player, board)
-    tie_chk = tie_update(board, win_chk)
-
-    new_game? if win_chk || tie_chk
+  def players
+    data = ask_data
+    @player1 = Player.new(data[:name1], data[:mark1]).to_hash
+    @player2 = Player.new(data[:name2], data[:mark2]).to_hash
   end
 
   def turns
-    @board.load_board
-
-    sort = [0, 1].sample
-
-    first = sort.zero? ? @player1 : @player2
-    second = sort.zero? ? @player2 : @player1
-
-    finish = false
-    until finish
-      # FIRST PLAYER
-      finish = movement_and_check(first, @board)
-      next if finish
-
-      # SECOND PLAYER
-      finish = movement_and_check(second, @board)
+    moves = 0
+    print @board.render_board(@player1, @player2, @tie, {})
+   
+    over = false
+   
+    until over
+      player = moves.even? ? @player1 : @player2
+      input = select_position
+      if check_valid(input, @choices)
+        player_move(@choices, player, input)
+        win = winner(@choices, player[:mark])
+        tie = tie(@choices)
+        over = game_over(win,tie)
+        moves += 1
+        update_board = @board.update_board(input, player[:mark])
+        print @board.render_board(@player1, @player2, @tie, update_board)
+      else
+        invalid
+      end
+     
+      if win
+        player[:score] += 1
+        winner_message(player)
+      end
+      tie = tie(@choices)
+      if tie
+        @tie += 1
+        draw
+      end
     end
+    new_game?
   end
 
-  def tie_update(board, winner)
-    out = false
-    if @moves_counter == 9 && !winner
-      board.set_scores('tie', board.tie_score += 1)
-      board.load_board
-      puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
-            TIE, TRY AGAIN!\n
-    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
-      out = true
-    end
-    out
+  def tie(board)
+    board.none? { |x| x.is_a?(Integer) }
   end
 
-  def winner_update(player, board)
-    out = false
-    if @moves_counter > 4
-      streaks = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
-                 [1, 4, 7], [2, 5, 8], [3, 6, 9],
-                 [1, 5, 9], [3, 5, 7]]
-      streaks.each { |set| out = true if (player.places & set).size == 3 }
+  def winner(board, sign)
+    streaks = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]]
+    streaks.each do |first, second, third|
+      if board[first] == sign &&
+         board[second] == sign &&
+         board[third] == sign
+        return true
+      end
     end
-    if out
-      board.set_scores(player.name, player.score += 1)
-      board.load_board
-      winner = "#{player.name} [#{player.mark}]"
-      center_size = (26 - winner.size) / 2
-      spaces = center_size > 0 ? ' ' * center_size : ''
-      puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
-    #{spaces + winner} WINS!\n
-    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
-    end
-    out
+    false
   end
 
   def new_game?
     out = false
-    print '    Press [Enter] to PLAY AGAIN or [Q] to Quit: '
+    next_game
     until out
       q = gets.chomp.upcase
-      if q == 'Q'
+      if q == "Q"
         out = true
         clean_sys
-        puts "\nDeveloped in Ruby by: @st_iakov & @miss_elliev - 2019\n\n"
+        its_us
         break
       elsif q.empty?
         clean_for_new_game
+        print @board.blank_board(@player1, @player2, @tie)
+        turns
         break
       else
-        print '    Please only type [Q] to quit or press [Enter] for a new game: '
+        next_game_warning
       end
     end
     out
   end
 
-  def make_your_move(player, board)
-    board.load_board
-    puts "\n    #{player.name} [#{player.mark}] goes first, make your move\n" if @moves_counter.zero?
-    puts "\n    #{player.name} [#{player.mark}] make your move\n" if @moves_counter > 0
-    player.move(player, board)
-    @moves_counter += 1
+  def player_move(board, player, input)
+    board[input - 1] = player[:mark]
   end
 
   def clean_for_new_game
-    @player1.places.clear
-    @player2.places.clear
-    @board.used_cells = []
-    @moves_counter = 0
-    @board.clean_board
+    @choices = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  end
+
+  def check_valid(input, board)
+    print board
+    Array(1..9).include?(input) && board[input - 1].is_a?(Integer)
+  end
+
+  def game_over(win, tie)
+    win || tie
   end
 end
+
+a = Game.new
+a.players
+a.turns

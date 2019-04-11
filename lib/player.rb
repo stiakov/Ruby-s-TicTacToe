@@ -1,33 +1,19 @@
-require_relative './req'
+
 
 # Player class
-class Player < Game
-  attr_accessor :name, :mark, :score, :places
-  def initialize(name, mark)
+class Player
+  def initialize(name,mark,score = 0)
     @name = name
     @mark = mark
-    @places = []
-    @score = 0
+    @score = score
   end
 
-  def move(user, board)
-    print '    Select position [1] to [9] if available: '
-    check = false
-
-    until check
-      input = gets.chomp.to_i
-      check = check_valid(input, board)
-    end
-
-    @places << input.to_i
-    board.update_board(input.to_s, user.mark)
+  def to_hash
+    hash = {}
+    symbols = {}
+    instance_variables.each {|var| hash[var.to_s.delete("@")] = instance_variable_get(var) }
+    hash.each {|key,var| symbols[key.to_sym] = var }
+    symbols
   end
-
-  def check_valid(input, board)
-    valid_input = Array(1..9)
-    out = !board.used_cells.include?(input) && valid_input.include?(input) ? true : false
-    board.used_cells << input if out
-    print "\n        Invalid position, try again!\n\n    Select position [1] to [9] if available: " unless out
-    out
-  end
+  
 end
