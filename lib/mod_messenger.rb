@@ -81,8 +81,8 @@ module Messenger
 
   def draw
     puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
-    TIE, TRY AGAIN!\n
-|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
+            TIE, TRY AGAIN!\n
+    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
   end
 
   def winner_message(player)
@@ -90,8 +90,8 @@ module Messenger
     center_size = (26 - winner.size) / 2
     spaces = center_size > 0 ? '' * center_size : ''
     puts "    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n
-  #{spaces + winner} WINS!\n
-  |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
+    #{spaces + winner} WINS!\n
+    |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|\n\n\n"
   end
 
   def its_us
