@@ -13,7 +13,7 @@ Building a tic-tac-toe game on the command line where two human players can play
  ## Install
  - Assure you have Ruby installed in your machine
  - Download the project
- - Run `ruby main.rb` in the console (You need to be placed in the root of the directory)
+ - Run `ruby main.rb` in the console (You need to be placed in the root directory)
 
 
 "Looking at code you wrote more than two weeks ago is like looking at code you are seeing for the first time." Dan Hurvitz
