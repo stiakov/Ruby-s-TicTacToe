@@ -1,6 +1,7 @@
 require_relative './req'
 
-class Player
+# Player class
+class Player < Game
   attr_accessor :name, :mark, :score, :places
   def initialize(name, mark)
     @name = name
@@ -24,8 +25,8 @@ class Player
 
   def check_valid(input, board)
     valid_input = Array(1..9)
-    out = !board.get_used_cells.include?(input) && valid_input.include?(input) ? true : false
-    board.add_to_used_cells(input) if out
+    out = !board.used_cells.include?(input) && valid_input.include?(input) ? true : false
+    board.used_cells << input if out
     print "\n        Invalid position, try again!\n\n    Select position [1] to [9] if available: " unless out
     out
   end

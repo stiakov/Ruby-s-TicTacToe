@@ -2,7 +2,7 @@ require_relative './req'
 
 # Board Class
 class Board
-  attr_accessor :player1, :player2, :surface, :tie_score, :score1, :score2, :used_cells
+  attr_accessor :player1, :player2, :surface, :tie_score, :score1, :score2, :used_cells, :cells
   include Messenger
 
   $empt = '       '
@@ -120,14 +120,6 @@ class Board
     │ #{@cells[:g4]} │ #{@cells[:h4]} │ #{@cells[:i4]} │
     └─────────┴─────────┴─────────┘\n\n"
     load_board
-  end
-
-  def add_to_used_cells(position)
-    @used_cells << position
-  end
-
-  def get_used_cells
-    @used_cells
   end
 
   def set_scores(player, score)
